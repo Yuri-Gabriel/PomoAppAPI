@@ -1,9 +1,11 @@
 /* eslint-disable prettier/prettier */
+
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
+import { Users } from './users/entities/user.entity';
 
 @Module({
   imports: [
@@ -14,9 +16,10 @@ import { UsersModule } from './users/users.module';
       username: 'root',
       password: '',
       database: 'pomoappdb',
-      entities: [],
+      entities: [Users],
       synchronize: true,
-    }),
+      },
+    ),
     UsersModule
   ],
   controllers: [AppController],
