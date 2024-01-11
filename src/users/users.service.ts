@@ -10,9 +10,9 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectRepository(Users) private usersRepository: Repository<Users>) {}
+  constructor(@InjectRepository(Users) public usersRepository: Repository<Users>) {}
 
-  async UserExists(createUserDto: CreateUserDto) {
+  async public UserExists(createUserDto: CreateUserDto) {
     if(await this.usersRepository.exists({ where: { 
       username: createUserDto.username,
     }})) {

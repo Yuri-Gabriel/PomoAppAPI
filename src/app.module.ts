@@ -6,6 +6,10 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { Users } from './users/entities/user.entity';
+import { TimersModule } from './timers/timers.module';
+import { Timers } from './timers/entities/timer.entity';
+import { UserTimersModule } from './user_timers/user_timers.module';
+import { UserTimers } from './user_timers/entities/user_timer.entity';
 
 @Module({
   imports: [
@@ -16,11 +20,13 @@ import { Users } from './users/entities/user.entity';
       username: 'root',
       password: '',
       database: 'pomoappdb',
-      entities: [Users],
+      entities: [Users, Timers, UserTimers],
       synchronize: true,
       },
     ),
-    UsersModule
+    UsersModule,
+    TimersModule,
+    UserTimersModule
   ],
   controllers: [AppController],
   providers: [AppService],
