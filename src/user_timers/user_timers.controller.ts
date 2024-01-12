@@ -2,7 +2,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { UserTimersService } from './user_timers.service';
 import { CreateUserTimerDto } from './dto/create-user_timer.dto';
-import { UpdateUserTimerDto } from './dto/update-user_timer.dto';
 
 @Controller('UserTimers')
 export class UserTimersController {
@@ -16,6 +15,11 @@ export class UserTimersController {
   @Get()
   findAll() {
     return this.userTimersService.findAll();
+  }
+
+  @Post(':id')
+  findAllUTFromUser(@Param('id') user_id: string) {
+    return this.userTimersService.findAllUTFromUser(+user_id);
   }
 
   @Get(':id')

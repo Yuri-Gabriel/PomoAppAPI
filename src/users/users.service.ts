@@ -12,7 +12,7 @@ import { Repository } from 'typeorm';
 export class UsersService {
   constructor(@InjectRepository(Users) public usersRepository: Repository<Users>) {}
 
-  async public UserExists(createUserDto: CreateUserDto) {
+  async UserExists(createUserDto: CreateUserDto): Promise<boolean> {
     if(await this.usersRepository.exists({ where: { 
       username: createUserDto.username,
     }})) {
@@ -30,7 +30,7 @@ export class UsersService {
     }
   }
   
-  async create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto): Promise<object> {
     if(await this.UserExists(createUserDto)) {
       return {
         status: 401,
@@ -42,11 +42,11 @@ export class UsersService {
     
   }
 
-  async findAllUsers() {
+  async findAllUsers(): Promise<Array<Users>> {
     return await this.usersRepository.find();
   }
 
-  async findOne(id: number) {
+  async findOne(id: number): Promise<object> {
     if (await this.usersRepository.exists({ where: { userid: id } })) {
       return await this.usersRepository.find({ where: { userid: id }});
     } else {
@@ -58,7 +58,7 @@ export class UsersService {
     
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto) {
+  async update(id: number, updateUserDto: UpdateUserDto): Promise<object> {
     if (await this.usersRepository.exists({ where: { userid: id } })) {
       return await this.usersRepository.update(id, updateUserDto);
     } else {
@@ -69,7 +69,7 @@ export class UsersService {
     }
   }
 
-  async remove(id: number) {
+  async remove(id: number): Promise<object> {
     const result = await this.usersRepository.delete(id);
     if(result.affected == 1) {
       return {

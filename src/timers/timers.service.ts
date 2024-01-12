@@ -1,7 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { CreateTimerDto } from './dto/create-timer.dto';
-import { UpdateTimerDto } from './dto/update-timer.dto';
 
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -13,7 +12,7 @@ export class TimersService {
 
   constructor(@InjectRepository(Timers) private usersRepository: Repository<Timers>) {}
 
-  async TimerExists(createTimerDto: CreateTimerDto) {
+  async TimerExists(createTimerDto: CreateTimerDto): Promise<boolean> {
     if(await this.usersRepository.exists({ where: { 
       timer_name: createTimerDto.timer_name,
     }})) {
@@ -23,7 +22,7 @@ export class TimersService {
     }
   }
 
-  async create(createTimerDto: CreateTimerDto) {
+  async create(createTimerDto: CreateTimerDto): Promise<object> {
     if(await this.TimerExists(createTimerDto)) {
       return {
         status: 401,
@@ -34,11 +33,11 @@ export class TimersService {
     }
   }
 
-  async findAll() {
+  async findAll(): Promise<Array<Timers>> {
     return await this.usersRepository.find();
   }
 
-  async findOne(id: number) {
+  async findOne(id: number): Promise<object> {
     if (await this.usersRepository.exists({ where: { timer_id: id } })) {
       return await this.usersRepository.find({ where: { timer_id: id }});
     } else {
@@ -49,7 +48,7 @@ export class TimersService {
     }
   }
 
-  async remove(id: number) {
+  async remove(id: number): Promise<object> {
     const result = await this.usersRepository.delete(id);
     if(result.affected == 1) {
       return {
