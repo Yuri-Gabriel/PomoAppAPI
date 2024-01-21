@@ -3,14 +3,17 @@
 import {
     Column,
     Entity,
-    PrimaryGeneratedColumn
+    PrimaryGeneratedColumn,
+    OneToMany
 } from "typeorm";
+
+import { Timer } from '../../timer/entities/timer.entity';
 
 @Entity()
 export class Users {
 
     @PrimaryGeneratedColumn()
-    userid: number;
+    user_id: number;
 
     @Column({ length: 20 })
     username: string;
@@ -20,4 +23,8 @@ export class Users {
 
     @Column({ length: 40 })
     userpassword: string;
+
+    @OneToMany(() => Timer, (timer: Timer) => timer.user_id)
+    timers: Timer[];
+
 }

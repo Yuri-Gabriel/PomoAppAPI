@@ -2,11 +2,15 @@
 import {
     Column,
     Entity,
-    PrimaryGeneratedColumn
+    PrimaryGeneratedColumn,
+    ManyToOne,
+    JoinColumn
 } from "typeorm";
 
+import { Users } from '../../user/entities/user.entity';
+
 @Entity()
-export class Timers {
+export class Timer {
     @PrimaryGeneratedColumn()
     timer_id: number;
 
@@ -21,4 +25,7 @@ export class Timers {
 
     @Column({ length: 20 })
     timer_name: string;
+
+    @ManyToOne(() => Users, (user: Users) => user.user_id)
+    user_id: number;
 }

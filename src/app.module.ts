@@ -4,12 +4,10 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersModule } from './users/users.module';
-import { Users } from './users/entities/user.entity';
-import { TimersModule } from './timers/timers.module';
-import { Timers } from './timers/entities/timer.entity';
-import { UserTimersModule } from './user_timers/user_timers.module';
-import { UserTimers } from './user_timers/entities/user_timer.entity';
+import { UserModule } from './user/user.module';
+import { Users } from './user/entities/user.entity';
+import { TimerModule } from './timer/timer.module';
+import { Timer } from './timer/entities/timer.entity';
 
 @Module({
   imports: [
@@ -20,13 +18,12 @@ import { UserTimers } from './user_timers/entities/user_timer.entity';
       username: 'root',
       password: '',
       database: 'pomoappdb',
-      entities: [Users, Timers, UserTimers],
+      entities: [Users, Timer],
       synchronize: true,
       },
     ),
-    UsersModule,
-    TimersModule,
-    UserTimersModule
+    UserModule,
+    TimerModule
   ],
   controllers: [AppController],
   providers: [AppService],

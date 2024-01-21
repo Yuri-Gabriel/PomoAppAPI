@@ -4,4 +4,5 @@ export class CreateTimerDto {
     forpause: number;
     sessions: number;
     timer_name: string;
+    user_id: number;
 }
