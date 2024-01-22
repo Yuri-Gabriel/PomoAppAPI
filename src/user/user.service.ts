@@ -49,10 +49,10 @@ export class UserService {
       throw new NotFoundException("User not found");
     }
 
-    const user = await this.usersRepository.findBy({
+    const user = await this.usersRepository.find({ where: {
       useremails: userLogin.useremails,
       userpassword: userLogin.userpassword
-    })
+    }, relations: ['timers']})
 
     return user[0];
   }
