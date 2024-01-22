@@ -1,13 +1,17 @@
 /* eslint-disable prettier/prettier */
 
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { UserModule } from './user/user.module';
-import { Users } from './user/entities/user.entity';
 import { TimerModule } from './timer/timer.module';
+
+import { Users } from './user/entities/user.entity';
 import { Timer } from './timer/entities/timer.entity';
+
 
 @Module({
   imports: [

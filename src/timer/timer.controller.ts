@@ -8,17 +8,17 @@ import { Timer } from './entities/timer.entity';
 export class TimerController {
   constructor(private readonly timerService: TimerService) {}
 
-  @Post()
-  create(@Body() createTimerDto: CreateTimerDto) {
+  @Post('/createTimer')
+  createTimer(@Body() createTimerDto: CreateTimerDto) {
     return this.timerService.create(createTimerDto);
   }
 
-  @Get()
+  @Get('/findAll')
   findAll() {
     return this.timerService.findAll();
   }
 
-  @Delete()
+  @Delete('/remove')
   remove(@Body() TimerUserId: Timer) {
     return this.timerService.remove(TimerUserId.timer_id, TimerUserId.user_id);
   }

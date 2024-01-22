@@ -39,13 +39,22 @@ export class UserService {
     return await this.usersRepository.find({ relations: ['timers'] });
   }
 
-  async findOne(id: number) {
-    await this.UserExistsByID(id);
+  async findOne(userLogin: CreateUserDto) {
+    const result = await this.usersRepository.existsBy({
+      useremails: userLogin.useremails,
+      userpassword: userLogin.userpassword
+    })
 
-    return await this.usersRepository.find({
-      where: { user_id: id },
-      relations: ['timers']
-    });
+    if(!result) {
+      throw new NotFoundException("User not found");
+    }
+
+    const user = await this.usersRepository.findBy({
+      useremails: userLogin.useremails,
+      userpassword: userLogin.userpassword
+    })
+
+    return user[0];
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {

@@ -20,27 +20,27 @@ export class UserController {
 
   constructor(private readonly usersService: UserService) {}
 
-  @Post()
+  @Post('/createUser')
   createUser(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
 
-  @Get()
+  @Get('/findAllUsers')
   findAllUsers() {
     return this.usersService.findAllUsers();
   }
 
-  @Get(':id')
-  findUser(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+  @Get('/findUser')
+  findUser(@Body() userLogin: CreateUserDto) {
+    return this.usersService.findOne(userLogin);
   }
 
-  @Patch(':id')
+  @Patch('/updateUser/:id')
   updateUser(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(+id, updateUserDto);
   }
 
-  @Delete(':id')
+  @Delete('/removeUser/:id')
   removeUser(@Param('id') id: string) {
     return this.usersService.remove(+id);
   }
