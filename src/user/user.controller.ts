@@ -30,7 +30,7 @@ export class UserController {
     return this.usersService.findAllUsers();
   }
 
-  @Get('/findUser')
+  @Post('/findUser')
   findUser(@Body() userLogin: CreateUserDto) {
     return this.usersService.findOne(userLogin);
   }
